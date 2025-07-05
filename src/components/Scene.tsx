@@ -1,15 +1,11 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { a, useSpring } from '@react-spring/three';
 import { Mesh } from 'three';
 import * as THREE from 'three';
 import AnimatedLine from './AnimatedLine';
-
-type SceneProps = {
-  scrollY: number;
-};
 
 const Cube: React.FC = () => {
   const ref = useRef<Mesh>(null);
@@ -41,8 +37,7 @@ const Cube: React.FC = () => {
   );
 };
 
-const Scene: React.FC<SceneProps> = ({ scrollY }) => {
-  // Use scrollY if you want to control camera position in future
+const Scene: React.FC = () => {
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
 
   useEffect(() => {
