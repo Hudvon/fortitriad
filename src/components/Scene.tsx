@@ -6,10 +6,6 @@ import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import { a, useSpring } from '@react-spring/three';
 
-type SceneProps = {
-  showConnection?: boolean;
-};
-
 const SpinningCube: React.FC = () => {
   const ref = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
@@ -40,7 +36,7 @@ const SpinningCube: React.FC = () => {
   );
 };
 
-const Scene: React.FC<SceneProps> = ({ showConnection }) => {
+const Scene: React.FC = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-screen z-0 bg-black">
       <Canvas camera={{ position: [0, 0, 5] }}>
