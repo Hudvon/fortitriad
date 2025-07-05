@@ -7,6 +7,11 @@ import { Mesh } from 'three';
 import * as THREE from 'three';
 import AnimatedLine from './AnimatedLine';
 
+type SceneProps = {
+  scrollY?: number;
+  showConnection?: boolean;
+};
+
 const Cube: React.FC = () => {
   const ref = useRef<Mesh>(null);
   const [hovered, setHovered] = useState(false);
@@ -37,7 +42,7 @@ const Cube: React.FC = () => {
   );
 };
 
-const Scene: React.FC = () => {
+const Scene: React.FC<SceneProps> = ({ scrollY, showConnection }) => {
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
 
   useEffect(() => {
@@ -52,7 +57,9 @@ const Scene: React.FC = () => {
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
         <Cube />
-        <AnimatedLine from={{ x: 200, y: 200 }} to={{ x: 400, y: 400 }} />
+        {showConnection && (
+          <AnimatedLine from={{ x: 200, y: 200 }} to={{ x: 400, y: 400 }} />
+        )}
       </Canvas>
     </div>
   );
