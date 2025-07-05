@@ -1,27 +1,30 @@
+// src/components/AnimatedLine.tsx
+
 'use client';
 
-import { Line } from '@react-three/drei';
-import * as THREE from 'three';
-import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import React from 'react';
 
-export default function AnimatedLine({ scrollY }: { scrollY: number }) {
-  const [progress, setProgress] = useState(0);
-  const endY = -scrollY * 0.002;
-  const ref = useRef<any>(null);
-
-  useEffect(() => {
-    const animate = () => {
-      setProgress((prev) => Math.min(prev + 0.02, 1));
-    };
-
-    const id = setInterval(animate, 16);
-    return () => clearInterval(id);
-  }, [scrollY]);
-
-  const points = [
-    new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(0, endY * progress, 0),
-  ];
-
-  return <Line ref={ref} points={points} color="cyan" lineWidth={2} />;
+interface AnimatedLineProps {
+  from: { x: number; y: number };
+  to: { x: number; y: number };
 }
+
+const AnimatedLine: React.FC<AnimatedLineProps> = ({ from, to }) => {
+  const path = `M${from.x},${from.y} L${to.x},${to.y}`;
+
+  return (
+    <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
+      <motion.path
+        d={path}
+        stroke="cyan"
+        strokeWidth="1"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 1.2, ease: 'easeInOut' }}
+      />
+    </svg>
+  );
+};
+
+export default AnimatedLine;
